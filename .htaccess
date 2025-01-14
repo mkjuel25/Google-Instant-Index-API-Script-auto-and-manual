@@ -1,0 +1,10 @@
+# Prevent direct access to the service-account.json file
+<Files "service-account.json">
+    Order Allow,Deny
+    Deny from all
+    ErrorDocument 404 /404.html
+</Files>
+
+# Custom 404 page (optional, point to your desired 404 page)
+ErrorDocument 404 /404.html
+  
