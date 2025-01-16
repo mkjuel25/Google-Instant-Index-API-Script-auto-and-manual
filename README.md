@@ -1,14 +1,21 @@
 # Google-Instant-Index-API-Script-auto-and-manual
 This project demonstrates how to use the Google Indexing API to automate the indexing of URLs, either via RSS feed or manual URL submission. It allows users to submit website URLs to Google's Instant Indexing API efficiently, improving content visibility on search engines. 
 
+---
+What this project includes, the first method is to automate the indexing of URLs using cron Jon and the Google Indexing API, and the second method is to manually submit URLs.
 
-Here's the **README.md** file based on your detailed guide:
+For those who use 3rd party scripts or any other blogging platform/PHP script, it is highlighted how to use auto index - you can try it in a subdomain or folder as a directory.
+
+Note : Before running this script, create Google Index API for the website you will use the feed URL of and set site ownership in search console.
+
+Rename the Json file created from the Google Index API to service-account.json
 
 ---
 
 # Google Instant Index API Script
 
 This project demonstrates how to automate the submission of URLs to Google Instant Index API. It supports both **automatic** (via RSS feeds) and **manual** (via user input) submission methods.
+
 
 ---
 
@@ -87,7 +94,7 @@ Run `collect.php` periodically using a cron job or a service like **cron-job.org
 
 #### Cron Job Setup
 
-Run `autoSubmit.php` periodically using a cron job:
+Run `autoSubmit.php` periodically using a cron job (recommend to use cron-job.org):
 
 ```plaintext
 0 * * * * /usr/bin/php /path/to/autoSubmit.php
@@ -107,7 +114,7 @@ Run `autoSubmit.php` periodically using a cron job:
 
 ## Notes
 
-1. Ensure the `private/service-account.json` file is correctly configured.
+1. Ensure the `private/service-account.json` file is correctly configured. ( Rename the Json file created from the Google Index API to service-account.json.)
 2. Use tools like **cron-job.org** for periodic execution.
 3. Verify the feed’s `isPermaLink` attribute in `collect.php` (default: `true`).
 
