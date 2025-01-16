@@ -11,6 +11,14 @@ Here's the **README.md** file based on your detailed guide:
 This project demonstrates how to automate the submission of URLs to Google Instant Index API. It supports both **automatic** (via RSS feeds) and **manual** (via user input) submission methods.
 
 ---
+What this project includes, the first method is to automate the indexing of URLs using cron Jon and the Google Indexing API, and the second method is to manually submit URLs.
+
+For those who use 3rd party scripts or any other blogging platform/PHP script, it is highlighted how to use auto index - you can try it in a subdomain or folder as a directory.
+
+Note : Before running this script, create Google Index API for the website you will use the feed URL of and set site ownership in search console.
+
+Rename the Json file created from the Google Index API to service-account.json .
+---
 
 ## Features
 
@@ -57,6 +65,17 @@ $rssUrl = 'https://yourwebsite.com/rss.xml';
 
 2. Place this file in your project root.
 
+Note: What you need to edit in collect.php ($rssUrl = 'https://yoursite/rss.xml'; ) is to add the URL of your website.
+
+(If the site's feed url has isPermaLink=”false” then set it to false otherwise it won't work, normal is true [Find if it's false in rss and write false here, if ($isPermaLink === 'false') in collect.php)
+
+Key points –
+
+ Collect RSS feed from given feed (https://website.com/feed) URL. ✓✓
+The content of the RSS feed is parsed using simplexml_load_string(). ✓✓
+Checks whether the guid element of the RSS item has isPermaLink=”true”. ✓✓
+Collect all valid URLs and save them in a JSON file, containing only the 20 most recent URLs. ✓✓
+
 #### How It Works
 
 - Collects URLs from the RSS feed.
@@ -87,7 +106,7 @@ Run `collect.php` periodically using a cron job or a service like **cron-job.org
 
 #### Cron Job Setup
 
-Run `autoSubmit.php` periodically using a cron job:
+Run `autoSubmit.php` periodically using a cron job (or, use cron-job.org:
 
 ```plaintext
 0 * * * * /usr/bin/php /path/to/autoSubmit.php
