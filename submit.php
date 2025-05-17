@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json');
 
-// JSON ফাইলের পাথ (প্রাইভেট ডিরেক্টরি)
+// Path to the JSON file (private directory)
 $serviceAccountPath = 'private/service-account.json';
 
-// ডাটা রিড করা
+// Read input data
 $data = json_decode(file_get_contents('php://input'), true);
 $urls = $data['urls'] ?? [];
 
@@ -13,7 +13,7 @@ if (empty($urls)) {
     exit;
 }
 
-// সার্ভিস অ্যাকাউন্ট ফাইল লোড করা
+// Load the service account file
 if (!file_exists($serviceAccountPath)) {
     echo json_encode(['success' => false, 'message' => 'Service account file not found.']);
     exit;
@@ -24,10 +24,10 @@ $privateKey = $serviceAccount['private_key'];
 $clientEmail = $serviceAccount['client_email'];
 $tokenUrl = $serviceAccount['token_uri'];
 
-// JWT তৈরি করা
+// Create JWT
 $jwt = createJwt($privateKey, $clientEmail, $tokenUrl);
 
-// টোকেন রিকোয়েস্ট
+// Request token
 $postData = http_build_query([
     'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
     'assertion' => $jwt
