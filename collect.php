@@ -4,10 +4,10 @@ header('Content-Type: application/json');
 // RSS Feed URL
 $rssUrl = 'https://yoursite/rss.xml';
 
-// JSON ফাইলের পাথ (প্রাইভেট ডিরেক্টরি)
+// Path to the JSON file (private directory)
 $jsonFilePath = 'private/new.json';
 
-// RSS ফিড থেকে ডাটা সংগ্রহ
+// Fetch data from the RSS feed
 $rssContent = file_get_contents($rssUrl);
 
 if (!$rssContent) {
@@ -18,7 +18,7 @@ if (!$rssContent) {
 $xml = simplexml_load_string($rssContent);
 $items = $xml->channel->item;
 
-// নতুন URLs সংগ্রহ
+// Collect new URLs
 $newUrls = [];
 foreach ($items as $item) {
     $guid = (string) $item->guid;
@@ -29,12 +29,12 @@ foreach ($items as $item) {
     }
 }
 
-// সর্বশেষ ২০টি URL সংরক্ষণ
+// Store the latest 20 URLs
 if ($newUrls) {
-    // সর্বশেষ ২০টি URL রাখার জন্য
+    // Keep only the latest 20 unique URLs
     $newUrls = array_slice(array_unique($newUrls), -20);
 
-    // ফাইল আপডেট করা
+    // Update the file
     file_put_contents($jsonFilePath, json_encode($newUrls, JSON_PRETTY_PRINT));
 
     echo json_encode(['success' => true, 'message' => 'New URLs collected and limited to 20.', 'urls' => $newUrls]);
