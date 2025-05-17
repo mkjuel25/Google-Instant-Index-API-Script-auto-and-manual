@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-// JSON ফাইলের পাথ
+// Path to JSON files
 $jsonFilePath = 'private/new.json';
 $historyFilePath = 'private/history.json';
 $serviceAccountPath = 'private/service-account.json';
